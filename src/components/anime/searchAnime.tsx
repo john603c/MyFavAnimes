@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import { SearchAnime } from '@/src/sevices/searchAnime';
 
+import { Star } from 'lucide-react';
+
 export default function SearchAnimeComponent() {
     const [query, setQuery] = useState('');
     const [results, setResults] = useState<any[]>([]);
@@ -32,7 +34,7 @@ export default function SearchAnimeComponent() {
     }, [query]);
 
     return (
-        <div className="max-w-lg mx-auto p-4">
+        <div className="w-full md:w-lg p-4">
             <h1 className="text-2xl font-bold mb-4 text-center">Buscar Anime</h1>
 
             <input
@@ -46,17 +48,20 @@ export default function SearchAnimeComponent() {
             {loading && <p className="text-center mt-3">Carregando...</p>}
             {error && <p className="text-center text-red-500 mt-3">{error}</p>}
 
-            <ul className="mt-4 space-y-3">
+            <ul className="flex flex-col mt-4 space-y-3">
                 {results.map((anime) => (
-                    <li key={anime.mal_id} className="flex items-center gap-3 border-b pb-2">
+                    <li key={anime.mal_id} className="flex items-start gap-3 pb-2>">
                         <img
                             src={anime.images.jpg.image_url}
                             alt={anime.title}
-                            className="w-12 h-16 object-cover rounded"
+                            className="max-w-[150px] object-cover rounded"
                         />
                         <div>
-                            <h2 className="font-semibold">{anime.title}</h2>
-                            <p className="text-sm text-gray-500">{anime.year || 'Ano desconhecido'}</p>
+                            <h2 className="flex text-sm gap-3 items-start mt-3 mb-1 font-semibold">
+                                {anime.title} 
+                                <span className='flex items-center gap-1 text-sm text-yellow-500'><Star size={12} />{anime.score || 'N/A'}</span>
+                            </h2>
+                            <p className="text-xs text-gray-500">{anime.year || 'Ano desconhecido'}</p>
                         </div>
                     </li>
                 ))}
