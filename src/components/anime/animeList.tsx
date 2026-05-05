@@ -13,6 +13,11 @@ interface Anime {
             image_url: string;
         };
     };
+    streaming: {
+        name: string;
+        url: string;
+    }
+    
 }
 
 export default function AnimeList() {
